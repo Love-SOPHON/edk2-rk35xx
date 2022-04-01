@@ -1,0 +1,12 @@
+[submodule "edk2"]
+	path = edk2
+	url = https://github.com/tianocore/edk2.git
+[submodule "edk2-platforms"]
+	path = edk2-platforms
+	url = https://github.com/tianocore/edk2-platforms.git
+[submodule "custRkPkg/Library/SimpleInit"]
+	path = custRkPkg/Library/SimpleInit
+	url = https://github.com/BigfootACA/simple-init.git
+[submodule "rkbin"]
+	path = rkbin
+	url = https://github.com/Caesar-github/rkbin.git

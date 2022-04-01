@@ -1,0 +1,10 @@
+workspace
+*.dll
+.cache
+.vscode
+*.dts
+*.swp
+*.rej
+*.orig
+*.itb
+idblock.bin

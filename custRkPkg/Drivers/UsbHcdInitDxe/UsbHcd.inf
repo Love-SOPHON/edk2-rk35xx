@@ -1,0 +1,55 @@
+#  UsbHcd.inf
+#
+#  Copyright 2017, 2020 NXP
+#
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+#
+
+[Defines]
+  INF_VERSION                     = 0x0001001A
+  BASE_NAME                       = UsbHcdDxe
+  FILE_GUID                       = 196e7c2a-37b2-4b85-8683-718588952449
+  MODULE_TYPE                     = DXE_DRIVER
+  VERSION_STRING                  = 1.0
+  ENTRY_POINT                     = InitializeUsbHcd
+
+[Sources.common]
+  UsbHcd.c
+  UsbHcd.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  custRkPkg/custRkPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  DebugLib
+  IoLib
+  MemoryAllocationLib
+  NonDiscoverableDeviceRegistrationLib
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+
+[FixedPcd]
+  gcustRkPkgTokenSpaceGuid.PcdNumUsb2Controller
+  gcustRkPkgTokenSpaceGuid.PcdUsb2BaseAddr
+  gcustRkPkgTokenSpaceGuid.PcdUsb2Size
+  gcustRkPkgTokenSpaceGuid.PcdNumUsb3Controller
+  gcustRkPkgTokenSpaceGuid.PcdUsb3BaseAddr
+  gcustRkPkgTokenSpaceGuid.PcdUsb3Size
+  gcustRkPkgTokenSpaceGuid.PcdUsbPhyGrfBaseAddr
+  gcustRkPkgTokenSpaceGuid.PcdOhc0Status
+  gcustRkPkgTokenSpaceGuid.PcdOhc1Status
+  gcustRkPkgTokenSpaceGuid.PcdEhc0Status
+  gcustRkPkgTokenSpaceGuid.PcdEhc1Status
+  gcustRkPkgTokenSpaceGuid.PcdXhc0Status
+  gcustRkPkgTokenSpaceGuid.PcdXhc1Status
+
+[Guids]
+  gEfiEndOfDxeEventGroupGuid
+
+[Depex]
+  TRUE

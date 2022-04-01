@@ -8,6 +8,8 @@ Currently it's very messy, and SimpleInit doesn't work properly.
 
 Run `bash build.sh` and read help message
 
+For dependencies, check out https://github.com/edk2-porting/edk2-sdm845#dependencies temporarily
+
 # Credits
 
 [quartz64_uefi](https://github.com/jaredmcneill/quartz64_uefi) by Jared McNeill

@@ -84,7 +84,7 @@ function _build_idblock(){
 	(cd rkbin && ./tools/boot_merger RKBOOT/${MINIALL_INI})
 	./rkbin/tools/boot_merger unpack --loader rkbin/${SOC}_spl_loader_*.bin --output .
 	cat ${FLASHFILES} > idblock.bin
-	# (cd rkbin && git checkout ${DDR})
+	(cd rkbin && git checkout ${DDR})
 
 	# Cleanup
 	rm -f rkbin/rk35*_spl_loader_*.bin

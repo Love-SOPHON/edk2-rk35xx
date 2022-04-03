@@ -342,6 +342,8 @@
   }
   custRkPkg/Drivers/LogoDxe/LogoDxe.inf
 
+  custRkPkg/Applications/maskrom/maskrom.inf
+
   ShellPkg/Application/Shell/Shell.inf {
     <LibraryClasses>
       ShellCommandLib|ShellPkg/Library/UefiShellCommandLib/UefiShellCommandLib.inf

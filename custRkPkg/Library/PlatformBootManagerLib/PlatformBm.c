@@ -597,6 +597,7 @@ PlatformRegisterOptionsAndKeys (
   EFI_INPUT_KEY                 Enter;
   EFI_INPUT_KEY                 F2;
   EFI_INPUT_KEY                 F3;
+  EFI_INPUT_KEY                 F4;
   EFI_INPUT_KEY                 Esc;
   EFI_BOOT_MANAGER_LOAD_OPTION  BootOption;
 
@@ -641,6 +642,12 @@ PlatformRegisterOptionsAndKeys (
   F3.UnicodeChar  = CHAR_NULL;
 
   PlatformRegisterFvBootOption (&gSimpleInitFileGuid, L"Simple Init", LOAD_OPTION_ACTIVE, &F3);
+
+  // Map F4 for rebooting to maskrom
+  F4.ScanCode     = SCAN_F4;
+  F4.UnicodeChar  = CHAR_NULL;
+
+  PlatformRegisterFvBootOption (&gMaskromFileGuid, L"Reboot to Maskrom", LOAD_OPTION_ACTIVE, &F4);
 }
 
 //

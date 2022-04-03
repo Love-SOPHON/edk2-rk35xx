@@ -147,6 +147,8 @@ READ_LOCK_STATUS   = TRUE
   INF ShellPkg/DynamicCommand/TftpDynamicCommand/TftpDynamicCommand.inf
 !endif #$(INCLUDE_TFTP_COMMAND)
 
+
+  INF custRkPkg/Applications/maskrom/maskrom.inf
   #
   # Board specific initialization
   #

@@ -21,7 +21,7 @@
 
 [LibraryClasses.common]
   ArmLib|ArmPkg/Library/ArmLib/ArmBaseLib.inf
-  ArmPlatformLib|custRkPkg/Library/PlatformLib/PlatformLib356x.inf
+  ArmPlatformLib|custRkPkg/Library/PlatformLib/PlatformLib3588.inf
   CompilerIntrinsicsLib|ArmPkg/Library/CompilerIntrinsicsLib/CompilerIntrinsicsLib.inf
   CapsuleLib|MdeModulePkg/Library/DxeCapsuleLibNull/DxeCapsuleLibNull.inf
   UefiBootManagerLib|MdeModulePkg/Library/UefiBootManagerLib/UefiBootManagerLib.inf
@@ -125,7 +125,7 @@
   gArmPlatformTokenSpaceGuid.PcdClusterCount|1
 
   # UART2
-  gEfiMdeModulePkgTokenSpaceGuid.PcdSerialRegisterBase|0xFE660000
+  gEfiMdeModulePkgTokenSpaceGuid.PcdSerialRegisterBase|0xFEB50000
   gEfiMdeModulePkgTokenSpaceGuid.PcdSerialUseMmio|TRUE
   gEfiMdeModulePkgTokenSpaceGuid.PcdSerialUseHardwareFlowControl|FALSE
   gEfiMdeModulePkgTokenSpaceGuid.PcdSerialClockRate|24000000
@@ -135,15 +135,17 @@
   # Using 115200 baudrate
   gEfiMdePkgTokenSpaceGuid.PcdUartDefaultBaudRate|115200
 
+  gcustRkPkgTokenSpaceGuid.PcdTfaSize|0x00200000
+  gcustRkPkgTokenSpaceGuid.PcdUsb2BaseAddr|0xFC800000
+  gcustRkPkgTokenSpaceGuid.PcdUsb2PhyGrfBaseAddr|0xFD5D0000
+  gcustRkPkgTokenSpaceGuid.PcdUsb3BaseAddr|0xFC000000
+
   #
   # ARM General Interrupt Controller
   #
-  gArmTokenSpaceGuid.PcdGicDistributorBase|0xFD400000
-  gArmTokenSpaceGuid.PcdGicRedistributorsBase|0xFD460000
-  gcustRkPkgTokenSpaceGuid.PcdGicPmuIrq0|260
-  gcustRkPkgTokenSpaceGuid.PcdGicPmuIrq1|261
-  gcustRkPkgTokenSpaceGuid.PcdGicPmuIrq2|262
-  gcustRkPkgTokenSpaceGuid.PcdGicPmuIrq3|263
+  gArmTokenSpaceGuid.PcdGicDistributorBase|0xFE600000
+  gArmTokenSpaceGuid.PcdGicRedistributorsBase|0xFE680000
+  gcustRkPkgTokenSpaceGuid.PcdGicPmuIrq0|8
 
   gArmTokenSpaceGuid.PcdArmArchTimerFreqInHz|24000000
 

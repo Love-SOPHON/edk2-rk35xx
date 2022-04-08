@@ -41,6 +41,7 @@
   gcustRkPkgTokenSpaceGuid.PcdUsb3BaseAddr
   gcustRkPkgTokenSpaceGuid.PcdUsb3Size
   gcustRkPkgTokenSpaceGuid.PcdUsbPhyGrfBaseAddr
+  gcustRkPkgTokenSpaceGuid.PcdUsb2PhyGrfBaseAddr
   gcustRkPkgTokenSpaceGuid.PcdOhc0Status
   gcustRkPkgTokenSpaceGuid.PcdOhc1Status
   gcustRkPkgTokenSpaceGuid.PcdEhc0Status

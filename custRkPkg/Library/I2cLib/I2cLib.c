@@ -15,7 +15,7 @@
 #include <Library/IoLib.h>
 #include <Library/TimerLib.h>
 #include <Library/I2cLib.h>
-#include <IndustryStandard/Rk356x.h>
+#include <IndustryStandard/Rk35xx.h>
 
 #define I2C_REFCLK              24000000
 #define I2C_BUSCLK              100000

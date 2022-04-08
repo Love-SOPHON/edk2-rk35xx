@@ -13,7 +13,7 @@
 #include <Library/DebugLib.h>
 #include <Library/IoLib.h>
 #include <Library/GpioLib.h>
-#include <IndustryStandard/Rk356x.h>
+#include <IndustryStandard/Rk35xx.h>
 
 #define GRF_GPIO_IOMUX_REG(Pin)         (((Pin) / 4) * 4)
 #define GRF_GPIO_IOMUX_SHIFT(Pin)       (((Pin) % 4) * 4)
@@ -46,6 +46,7 @@ typedef struct {
   EFI_PHYSICAL_ADDRESS  DS;
 } GPIO_PINMUX_REGS;
 
+#ifdef RK356X
 STATIC GPIO_PINMUX_REGS mPinmuxReg[GPIO_NGROUPS] = {
 #define REG_BASE(Base, IomuxOff, POff, IeOff, DsOff)   { .IOMUX = (Base) + (IomuxOff), .P = (Base) + (POff), .IE = (Base) + (IeOff), .DS = (Base) + (DsOff) }
   [0] = REG_BASE(PMU_GRF, 0x0000, 0x0020, 0x0030, 0x0070),
@@ -55,6 +56,19 @@ STATIC GPIO_PINMUX_REGS mPinmuxReg[GPIO_NGROUPS] = {
   [4] = REG_BASE(SYS_GRF, 0x0060, 0x00B0, 0x00F0, 0x02C0),
 #undef REG_BASE
 };
+#else
+// TODO: FIX RK3588 SPECIFIC
+STATIC GPIO_PINMUX_REGS mPinmuxReg[GPIO_NGROUPS] = {
+#define REG_BASE(Base, IomuxOff, POff, IeOff, DsOff)   { .IOMUX = (Base) + (IomuxOff), .P = (Base) + (POff), .IE = (Base) + (IeOff), .DS = (Base) + (DsOff) }
+  [0] = REG_BASE(PMU1_IOC, 0x0000, 0x0020, 0x0030, 0x0070),
+  [1] = REG_BASE(SYS_GRF, 0x0000, 0x0080, 0x00C0, 0x0200),
+  [2] = REG_BASE(SYS_GRF, 0x0020, 0x0090, 0x00D0, 0x0240),
+  [3] = REG_BASE(SYS_GRF, 0x0040, 0x00A0, 0x00E0, 0x0280),
+  [4] = REG_BASE(SYS_GRF, 0x0060, 0x00B0, 0x00F0, 0x02C0),
+#undef REG_BASE
+};
+
+#endif
 
 VOID
 GpioPinSetDirection (

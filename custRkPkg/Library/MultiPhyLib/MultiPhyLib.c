@@ -15,7 +15,7 @@
 #include <Library/CruLib.h>
 #include <Library/MultiPhyLib.h>
 #include <Library/UefiBootServicesTableLib.h>
-#include <IndustryStandard/Rk356x.h>
+#include <IndustryStandard/Rk35xx.h>
 
 #define MULTIPHY_REGISTER(RegNo)    (((RegNo) - 1) * 4)
 

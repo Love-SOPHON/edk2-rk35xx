@@ -16,7 +16,7 @@
 
 #include <Protocol/Rng.h>
 
-#include <IndustryStandard/Rk356x.h>
+#include <IndustryStandard/Rk35xx.h>
 
 #define TRNG_RST_CTL            (TRNG_BASE + 0x0004)
 #define  SW_RNG_RESET           BIT1

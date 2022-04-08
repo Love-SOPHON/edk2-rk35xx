@@ -14,7 +14,7 @@
 #include <Library/IoLib.h>
 #include <Library/TimerLib.h>
 #include <Library/OtpLib.h>
-#include <IndustryStandard/Rk356x.h>
+#include <IndustryStandard/Rk35xx.h>
 
 #define OTPC_SBPI_CTRL                (OTP_BASE + 0x0020)
 #define  SBPI_DEVICE_ID_SHIFT         8

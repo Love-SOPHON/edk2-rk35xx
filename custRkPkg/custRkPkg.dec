@@ -51,6 +51,7 @@
   gcustRkPkgTokenSpaceGuid.PcdEhc1Status|0x0|UINT8|0x0000000a
   gcustRkPkgTokenSpaceGuid.PcdXhc0Status|0x0|UINT8|0x0000000b
   gcustRkPkgTokenSpaceGuid.PcdXhc1Status|0x0|UINT8|0x0000000c
+  gcustRkPkgTokenSpaceGuid.PcdUsb2PhyGrfBaseAddr|0xFD5D0000|UINT64|0x0000000d
   # Pcds for MSHC
   gcustRkPkgTokenSpaceGuid.PcdMshcDxeBaseAddress|0xFE2B0000|UINT32|0x00000010
   gcustRkPkgTokenSpaceGuid.PcdMshcDxeMaxClockFreqInHz|50000000|UINT32|0x00000011

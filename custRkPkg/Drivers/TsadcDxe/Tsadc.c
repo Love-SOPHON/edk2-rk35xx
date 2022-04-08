@@ -12,7 +12,7 @@
 #include <Library/TimerLib.h>
 #include <Library/UefiBootServicesTableLib.h>
 
-#include <IndustryStandard/Rk356x.h>
+#include <IndustryStandard/Rk35xx.h>
 
 /* SYS_GRF */
 #define GRF_TSADC_CON               (SYS_GRF + 0x0600)

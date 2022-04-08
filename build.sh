@@ -16,7 +16,7 @@ RK356X_DEVICES=(
 )
 
 RK3588_DEVICES=(
-	dummy
+	3588test
 )
 
 function _help(){
@@ -82,7 +82,7 @@ function _build_idblock(){
 	# Create idblock.bin
 	# Generate spl_loader
 	(cd rkbin && ./tools/boot_merger RKBOOT/${MINIALL_INI})
-	./rkbin/tools/boot_merger unpack --loader rkbin/${SOC}_spl_loader_*.bin --output .
+	./rkbin/tools/boot_merger unpack -i rkbin/${SOC}_spl_loader_*.bin -o .
 	cat ${FLASHFILES} > idblock.bin
 	(cd rkbin && git checkout ${DDR})
 
@@ -97,7 +97,8 @@ function _build_fit(){
 	./scripts/extractbl31.py rkbin/${BL31}
 	cp -f workspace/Build/custRkPkg/${_MODE}_GCC5/FV/CUSTRKPKG_UEFI.fd workspace/CUSTRKPKG_EFI.fd
 	cat uefi_${SOC}.its | sed "s,@DEVICE@,${DEVICE},g" > ${SOC}_${DEVICE}_EFI.its
-	./rkbin/tools/mkimage -f ${SOC}_${DEVICE}_EFI.its ${DEVICE}_EFI.itb
+	./rkbin/tools/mkimage -f ${SOC}_${DEVICE}_EFI.its -E ${DEVICE}_EFI.itb
+	# ./../u-boot_rk-next/tools/mkimage -f ${SOC}_${DEVICE}_EFI.its ${DEVICE}_EFI.itb
 	rm -f bl31_0x*.bin workspace/CUSTRKPKG_EFI.fd ${SOC}_${DEVICE}_EFI.its
 	echo " => FIT build done"
 }
@@ -256,6 +257,8 @@ else	HAS=false
 	do	[ "${i}" == "${DEVICE}" ]||continue
 		HAS=true
 		SOC=rk3588
+		MINIALL_INI=RK3588MINIALL.ini
+		TRUST_INI=RK3588TRUST.ini
 		break
 	done
 	[ "${HAS}" == "true" ]||_error "build.sh: unknown build target device ${DEVICE}."

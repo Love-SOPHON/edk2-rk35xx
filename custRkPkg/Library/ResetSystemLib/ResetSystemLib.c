@@ -87,7 +87,11 @@ ResetPlatformSpecific (
   IN VOID   *ResetData
   )
 {
+#ifdef RK356X
   MmioWrite32 (0xfdc20200, 0xEF08A53C);
+#else
+  MmioWrite32 (0xfd588080, 0xEF08A53C);
+#endif
   ResetCold();
 }
 

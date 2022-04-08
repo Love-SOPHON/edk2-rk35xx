@@ -26,7 +26,7 @@
 ################################################################################
 
 [FD.custRkPkg_UEFI]
-BaseAddress   = 0x00A00000|gArmTokenSpaceGuid.PcdFdBaseAddress
+BaseAddress   = 0x00200000|gArmTokenSpaceGuid.PcdFdBaseAddress
 Size          = 0x00380000|gArmTokenSpaceGuid.PcdFdSize
 ErasePolarity = 1
 
@@ -115,7 +115,7 @@ READ_LOCK_STATUS   = TRUE
   INF MdeModulePkg/Universal/Console/GraphicsConsoleDxe/GraphicsConsoleDxe.inf
   INF MdeModulePkg/Universal/Console/TerminalDxe/TerminalDxe.inf
   INF MdeModulePkg/Universal/SerialDxe/SerialDxe.inf
-  INF custRkPkg/Drivers/DisplayDxe/DisplayDxe.inf
+  # INF custRkPkg/Drivers/DisplayDxe/DisplayDxe.inf
   INF EmbeddedPkg/Drivers/ConsolePrefDxe/ConsolePrefDxe.inf
 
   INF ArmPkg/Drivers/ArmPciCpuIo2Dxe/ArmPciCpuIo2Dxe.inf
@@ -168,7 +168,7 @@ READ_LOCK_STATUS   = TRUE
   #
   # USB Host Support
   #
-  INF MdeModulePkg/Bus/Pci/EhciDxe/EhciDxe.inf
+  # INF MdeModulePkg/Bus/Pci/EhciDxe/EhciDxe.inf
   INF MdeModulePkg/Bus/Pci/XhciDxe/XhciDxe.inf
   INF MdeModulePkg/Bus/Pci/NonDiscoverablePciDeviceDxe/NonDiscoverablePciDeviceDxe.inf
   INF MdeModulePkg/Bus/Usb/UsbBusDxe/UsbBusDxe.inf
@@ -180,7 +180,7 @@ READ_LOCK_STATUS   = TRUE
   #
   # PCI Support
   #
-  INF MdeModulePkg/Bus/Pci/PciHostBridgeDxe/PciHostBridgeDxe.inf
+  # INF MdeModulePkg/Bus/Pci/PciHostBridgeDxe/PciHostBridgeDxe.inf
   INF MdeModulePkg/Bus/Pci/PciBusDxe/PciBusDxe.inf
   INF EmbeddedPkg/Drivers/NonCoherentIoMmuDxe/NonCoherentIoMmuDxe.inf
   INF MdeModulePkg/Bus/Pci/NvmExpressDxe/NvmExpressDxe.inf
@@ -189,7 +189,7 @@ READ_LOCK_STATUS   = TRUE
   # SD
   #
   INF EmbeddedPkg/Universal/MmcDxe/MmcDxe.inf
-  INF custRkPkg/Drivers/MshcDxe/MshcDxe.inf
+  # INF custRkPkg/Drivers/MshcDxe/MshcDxe.inf
 
   #
   # eMMC
@@ -234,7 +234,7 @@ READ_LOCK_STATUS   = TRUE
   #
   # Simple Init GUI
   #
-  # INF src/main/SimpleInitMain.inf
+  INF src/main/SimpleInitMain.inf
 
 [FV.FVMAIN_COMPACT]
 FvAlignment        = 16

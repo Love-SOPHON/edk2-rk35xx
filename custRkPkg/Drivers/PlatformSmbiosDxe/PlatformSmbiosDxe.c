@@ -892,7 +892,8 @@ ProcessorGetRate (
   UINT32 ClockId = 0;
 
   // If we can't query SCMI, fallback to reading from CRU registers
-  Rate = CruGetCoreClockRate ();
+  // TODO: Fix CRU
+  // Rate = CruGetCoreClockRate ();
 
   Status = gBS->LocateProtocol (
                   &ClockProtocolGuid,

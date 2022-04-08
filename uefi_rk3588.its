@@ -18,7 +18,7 @@
 			arch = "arm64";
 			os = "U-Boot";
 			compression = "none";
-			load = <0x00a00000>;
+			load = <0x00200000>;
 			hash {
 				algo = "sha256";
 			};
@@ -36,56 +36,44 @@
 			};
 		};
 		atf-2 {
-				description = "ARM Trusted Firmware";
-				data = /incbin/("./bl31_0x00068000.bin");
-				type = "firmware";
-				arch = "arm64";
-				os = "arm-trusted-firmware";
-				compression = "none";
-				load = <0x00068000>;
-				hash {
-						algo = "sha256";
-				};
-		};
-		atf-3 {
 			description = "ARM Trusted Firmware";
-			data = /incbin/("./bl31_0xfdcd0000.bin");
+			data = /incbin/("./bl31_0x000f0000.bin");
 			type = "firmware";
 			arch = "arm64";
 			os = "arm-trusted-firmware";
 			compression = "none";
-			load = <0xfdcd0000>;
+			load = <0x000f0000>;
+			hash {
+				algo = "sha256";
+			};
+		};
+		atf-3 {
+			description = "ARM Trusted Firmware";
+			data = /incbin/("./bl31_0xff100000.bin");
+			type = "firmware";
+			arch = "arm64";
+			os = "arm-trusted-firmware";
+			compression = "none";
+			load = <0xff100000>;
 			hash {
 				algo = "sha256";
 			};
 		};
 		atf-4 {
 			description = "ARM Trusted Firmware";
-			data = /incbin/("./bl31_0xfdcc9000.bin");
+			data = /incbin/("./bl31_0xff009000.bin");
 			type = "firmware";
 			arch = "arm64";
 			os = "arm-trusted-firmware";
 			compression = "none";
-			load = <0xfdcc9000>;
+			load = <0xff009000>;
 			hash {
 				algo = "sha256";
 			};
 		};
-		atf-5 {
-				description = "ARM Trusted Firmware";
-				data = /incbin/("./bl31_0x00066000.bin");
-				type = "firmware";
-				arch = "arm64";
-				os = "arm-trusted-firmware";
-				compression = "none";
-				load = <0x00066000>;
-				hash {
-						algo = "sha256";
-				};
-		};
 		optee {
 			description = "OP-TEE";
-			data = /incbin/("./rkbin/bin/rk35/rk3568_bl32_v2.08.bin");
+			data = /incbin/("./rkbin/bin/rk35/rk3588_bl32_v1.09.bin");
 			type = "firmware";
 			arch = "arm64";
 			os = "op-tee";
@@ -114,7 +102,7 @@
 			description = "@DEVICE@";
 			rollback-index = <0x0>;
 			firmware = "atf-1";
-			loadables = "uboot", "atf-2", "atf-3", "atf-4", "atf-5", "optee";
+			loadables = "uboot", "atf-2", "atf-3", "atf-4", "optee";
 			
 			fdt = "fdt";
 			signature {

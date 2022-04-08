@@ -66,10 +66,10 @@ ArmPlatformGetVirtualMemoryMap (
   VirtualMemoryInfo[Index].Type             = RK356X_MEM_UNMAPPED_REGION;
   VirtualMemoryInfo[Index++].Name           = L"Reserved";
 
-  // MMIO > 4GB
-  VirtualMemoryTable[Index].PhysicalBase    = 0x0000000300000000UL;
+  // MMIO > 32GB
+  VirtualMemoryTable[Index].PhysicalBase    = 0x0000000900000000UL;
   VirtualMemoryTable[Index].VirtualBase     = VirtualMemoryTable[Index].PhysicalBase;
-  VirtualMemoryTable[Index].Length          = 0x00000000C0C00000UL;
+  VirtualMemoryTable[Index].Length          = 0x0000000141400000UL;
   VirtualMemoryTable[Index].Attributes      = ARM_MEMORY_REGION_ATTRIBUTE_DEVICE;
   VirtualMemoryInfo[Index].Type             = RK356X_MEM_UNMAPPED_REGION;
   VirtualMemoryInfo[Index++].Name           = L"Reserved > 4GB";

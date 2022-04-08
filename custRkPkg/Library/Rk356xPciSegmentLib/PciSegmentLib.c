@@ -16,7 +16,7 @@
 #include <Library/DebugLib.h>
 #include <Library/IoLib.h>
 
-#include <IndustryStandard/Rk356x.h>
+#include <IndustryStandard/Rk35xx.h>
 
 typedef enum {
   PciCfgWidthUint8      = 0,

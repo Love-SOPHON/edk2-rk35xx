@@ -17,7 +17,7 @@
 #include <Library/MultiPhyLib.h>
 #include <Library/UefiBootServicesTableLib.h>
 #include <IndustryStandard/Pci.h>
-#include <IndustryStandard/Rk356x.h>
+#include <IndustryStandard/Rk35xx.h>
 #include "PciHostBridgeInit.h"
 
 /* APB Registers */

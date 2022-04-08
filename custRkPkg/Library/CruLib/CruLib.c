@@ -14,7 +14,7 @@
 #include <Library/IoLib.h>
 #include <Library/TimerLib.h>
 #include <Library/CruLib.h>
-#include <IndustryStandard/Rk356x.h>
+#include <IndustryStandard/Rk35xx.h>
 #include <IndustryStandard/Rk356xCru.h>
 
 typedef struct {

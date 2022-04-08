@@ -230,14 +230,20 @@ UsbPhyEnable (
 {
   USBPHY_GRF *GrfReg;
   
+#ifdef RK356X
   /* Take USB3 OTG PHY out of suspend mode */
   GrfReg = (VOID *) PcdGet64 (PcdUsbPhyGrfBaseAddr);
   MmioWrite32 ((UINTN)&GrfReg->Con1, 0x01ff01d2);
-
   /* Take USB2 HOST0 and HOST1 PHYs out of suspend mode */
   GrfReg = (VOID *) PcdGet64 (PcdUsbPhyGrfBaseAddr) + 0x8000;
   MmioWrite32 ((UINTN)&GrfReg->Con0, 0x01ff01d2);
   MmioWrite32 ((UINTN)&GrfReg->Con1, 0x01ff01d2);
+#else
+  GrfReg = (VOID *) PcdGet64 (PcdUsb2PhyGrfBaseAddr);
+  //TODO: Fix it later
+  MmioWrite32 ((UINTN)&GrfReg->Con0, 0x01ff01d2);
+  MmioWrite32 ((UINTN)&GrfReg->Con1, 0x01ff01d2);
+#endif
 }
 
 /**
@@ -311,7 +317,7 @@ UsbEndOfDxeCallback (
                NULL,
                NULL,
                1,
-               EhciControllerAddr, 0x10000
+               EhciControllerAddr, 0x40000
              );
 
     if (EFI_ERROR (Status)) {
@@ -328,7 +334,7 @@ UsbEndOfDxeCallback (
 
     OhciControllerAddr = PcdGet64 (PcdUsb2BaseAddr) +
                           (Index * PcdGet32 (PcdUsb2Size)) +
-                          0x10000;
+                          0x40000;
 
     Status = RegisterNonDiscoverableMmioDevice (
                NonDiscoverableDeviceTypeOhci,
@@ -336,7 +342,7 @@ UsbEndOfDxeCallback (
                NULL,
                NULL,
                1,
-               OhciControllerAddr, 0x10000
+               OhciControllerAddr, 0x40000
              );
 
     if (EFI_ERROR (Status)) {

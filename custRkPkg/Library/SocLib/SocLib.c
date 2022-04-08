@@ -12,7 +12,7 @@
 #include <Library/DebugLib.h>
 #include <Library/SocLib.h>
 
-#include <IndustryStandard/Rk356x.h>
+#include <IndustryStandard/Rk35xx.h>
 
 // The RK356x boot ROM stores the boot device in SRAM at this offset.
 #define BOOT_DEVICE_REG                 (SYSTEM_SRAM + 0x10)

@@ -8,7 +8,7 @@
 
 #include <Base.h>
 #include "DisplayDxe.h"
-#include <IndustryStandard/Rk356x.h>
+#include <IndustryStandard/Rk35xx.h>
 #include <IndustryStandard/Rk356xVop2.h>
 #include <Library/CruLib.h>
 #include "Vop2.h"

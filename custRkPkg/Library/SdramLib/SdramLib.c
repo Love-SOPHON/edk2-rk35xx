@@ -12,10 +12,15 @@
 #include <Library/DebugLib.h>
 #include <Library/SdramLib.h>
 
-#include <IndustryStandard/Rk356x.h>
+#include <IndustryStandard/Rk35xx.h>
 
+#ifdef RK356X
 #define PMU_GRF_OS_REG2             (PMU_GRF + 0x208)
 #define PMU_GRF_OS_REG3             (PMU_GRF + 0x20C)
+#else
+#define PMU_GRF_OS_REG2             (PMU1_GRF + 0x208)
+#define PMU_GRF_OS_REG3             (PMU1_GRF + 0x20C)
+#endif
 
 typedef enum {
     SDRAM_DDR4 = 0,

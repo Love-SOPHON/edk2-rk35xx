@@ -163,93 +163,93 @@ BoardInitSetCpuSpeed (
   DEBUG ((DEBUG_ERROR, "SCMI clock management protocol version = %x\n",
     ClockProtocolVersion));
 
-  ClockId = 0;
+  for (ClockId = 2; ClockId < 4; ClockId++) {
 
-  Status = ClockProtocol->GetClockAttributes (
-                            ClockProtocol,
-                            ClockId,
-                            &Enabled,
-                            ClockName
-                            );
-  if (EFI_ERROR (Status)) {
-    ASSERT_EFI_ERROR (Status);
-    return Status;
-  }
+    Status = ClockProtocol->GetClockAttributes (
+                              ClockProtocol,
+                              ClockId,
+                              &Enabled,
+                              ClockName
+                              );
+    if (EFI_ERROR (Status)) {
+      ASSERT_EFI_ERROR (Status);
+      return Status;
+    }
 
-  Status = ClockProtocol->RateGet (ClockProtocol, ClockId, &CpuRate);
-  if (EFI_ERROR (Status)) {
-    ASSERT_EFI_ERROR (Status);
-    return Status;
-  }
+    Status = ClockProtocol->RateGet (ClockProtocol, ClockId, &CpuRate);
+    if (EFI_ERROR (Status)) {
+      ASSERT_EFI_ERROR (Status);
+      return Status;
+    }
 
-  DEBUG ((DEBUG_INFO, "SCMI: %a: Current rate is %uHz\n", ClockName, CpuRate));
+    DEBUG ((DEBUG_INFO, "SCMI: %a: Current rate is %uHz\n", ClockName, CpuRate));
 
-  TotalRates = 0;
-  ClockRateSize = 0;
-  Status = ClockProtocol->DescribeRates (
-                            ClockProtocol,
-                            ClockId,
-                            &ClockRateFormat,
-                            &TotalRates,
-                            &ClockRateSize,
-                            ClockRate
-                            );
-  if (EFI_ERROR (Status) && Status != EFI_BUFFER_TOO_SMALL) {
-    ASSERT_EFI_ERROR (Status);
-    return Status;
-  }
-  ASSERT (Status == EFI_BUFFER_TOO_SMALL);
-  ASSERT (TotalRates > 0);
-  ASSERT (ClockRateFormat == ScmiClockRateFormatDiscrete);
-  if (Status != EFI_BUFFER_TOO_SMALL ||
-      TotalRates == 0 ||
-      ClockRateFormat != ScmiClockRateFormatDiscrete) {
-    return EFI_DEVICE_ERROR;
-  }
-  
-  ClockRateSize = sizeof (*ClockRate) * TotalRates;
-  ClockRate = AllocatePool (ClockRateSize);
-  ASSERT (ClockRate != NULL);
-  if (ClockRate == NULL) {
-    return EFI_OUT_OF_RESOURCES;
-  }
-  Status = ClockProtocol->DescribeRates (
-                            ClockProtocol,
-                            ClockId,
-                            &ClockRateFormat,
-                            &TotalRates,
-                            &ClockRateSize,
-                            ClockRate
-                            );
-  if (EFI_ERROR (Status)) {
-    ASSERT_EFI_ERROR (Status);
+    TotalRates = 0;
+    ClockRateSize = 0;
+    Status = ClockProtocol->DescribeRates (
+                              ClockProtocol,
+                              ClockId,
+                              &ClockRateFormat,
+                              &TotalRates,
+                              &ClockRateSize,
+                              ClockRate
+                              );
+    if (EFI_ERROR (Status) && Status != EFI_BUFFER_TOO_SMALL) {
+      ASSERT_EFI_ERROR (Status);
+      return Status;
+    }
+    ASSERT (Status == EFI_BUFFER_TOO_SMALL);
+    ASSERT (TotalRates > 0);
+    ASSERT (ClockRateFormat == ScmiClockRateFormatDiscrete);
+    if (Status != EFI_BUFFER_TOO_SMALL ||
+        TotalRates == 0 ||
+        ClockRateFormat != ScmiClockRateFormatDiscrete) {
+      return EFI_DEVICE_ERROR;
+    }
+    
+    ClockRateSize = sizeof (*ClockRate) * TotalRates;
+    ClockRate = AllocatePool (ClockRateSize);
+    ASSERT (ClockRate != NULL);
+    if (ClockRate == NULL) {
+      return EFI_OUT_OF_RESOURCES;
+    }
+    Status = ClockProtocol->DescribeRates (
+                              ClockProtocol,
+                              ClockId,
+                              &ClockRateFormat,
+                              &TotalRates,
+                              &ClockRateSize,
+                              ClockRate
+                              );
+    if (EFI_ERROR (Status)) {
+      ASSERT_EFI_ERROR (Status);
+      FreePool (ClockRate);
+      return Status;
+    }
+
+    CpuRate = ClockRate[TotalRates - 1].DiscreteRate.Rate;
     FreePool (ClockRate);
-    return Status;
+
+    DEBUG ((DEBUG_INFO, "SCMI: %a: New rate is %uHz\n", ClockName, CpuRate));
+
+    Status = ClockProtocol->RateSet (
+                              ClockProtocol,
+                              ClockId,
+                              CpuRate
+                              );
+    if (EFI_ERROR (Status)) {
+      ASSERT_EFI_ERROR (Status);
+      return Status;
+    }
+
+    Status = ClockProtocol->RateGet (ClockProtocol, ClockId, &CpuRate);
+    if (EFI_ERROR (Status)) {
+      ASSERT_EFI_ERROR (Status);
+      return Status;
+    }
+
+    DEBUG ((DEBUG_INFO, "SCMI: %a: Current rate is %uHz\n", ClockName, CpuRate));
   }
-
-  CpuRate = ClockRate[TotalRates - 1].DiscreteRate.Rate;
-  FreePool (ClockRate);
-
-  DEBUG ((DEBUG_INFO, "SCMI: %a: New rate is %uHz\n", ClockName, CpuRate));
-
-  Status = ClockProtocol->RateSet (
-                            ClockProtocol,
-                            ClockId,
-                            CpuRate
-                            );
-  if (EFI_ERROR (Status)) {
-    ASSERT_EFI_ERROR (Status);
-    return Status;
-  }
-
-  Status = ClockProtocol->RateGet (ClockProtocol, ClockId, &CpuRate);
-  if (EFI_ERROR (Status)) {
-    ASSERT_EFI_ERROR (Status);
-    return Status;
-  }
-
-  DEBUG ((DEBUG_INFO, "SCMI: %a: Current rate is %uHz\n", ClockName, CpuRate));
-
   return EFI_SUCCESS;
 }
 
@@ -438,38 +438,30 @@ BoardInitDriverEntryPoint (
 {
   DEBUG ((DEBUG_INFO, "BOARD: BoardInitDriverEntryPoint() called\n"));
 
-  BoardInitPmic ();
+  // TODO: Implement support for dual rk806
+  // BoardInitPmic ();
 
   /* Update CPU speed */
   BoardInitSetCpuSpeed ();
 
-  /* Enable automatic clock gating */
-  MmioWrite32 (PMU_NOC_AUTO_CON0, 0xFFFFFFFFU);
-  MmioWrite32 (PMU_NOC_AUTO_CON1, 0x000F000FU);
-
-  /* Set core_pvtpll ring length */
-  MmioWrite32 (GRF_CPU_COREPVTPLL_CON0,
-               ((CORE_PVTPLL_RING_LENGTH_SEL_MASK | CORE_PVTPLL_OSC_EN | CORE_PVTPLL_START) << 16) |
-               (5U << CORE_PVTPLL_RING_LENGTH_SEL_SHIFT) | CORE_PVTPLL_OSC_EN | CORE_PVTPLL_START);
-
   /* Configure MULTI-PHY 0 and 1 for USB3 mode */
-  MultiPhySetMode (0, MULTIPHY_MODE_USB3);
-  MultiPhySetMode (1, MULTIPHY_MODE_USB3);
+  // MultiPhySetMode (0, MULTIPHY_MODE_USB3);
+  // MultiPhySetMode (1, MULTIPHY_MODE_USB3);
 
   /* Set GPIO0 PA6 (USB_HOST5V_EN) output high to power USB ports */
-  GpioPinSetDirection (0, GPIO_PIN_PA6, GPIO_PIN_OUTPUT);
-  GpioPinWrite (0, GPIO_PIN_PA6, TRUE);
-  GpioPinSetDirection (0, GPIO_PIN_PA5, GPIO_PIN_OUTPUT);
-  GpioPinWrite (0, GPIO_PIN_PA5, TRUE);
+  // GpioPinSetDirection (0, GPIO_PIN_PA6, GPIO_PIN_OUTPUT);
+  // GpioPinWrite (0, GPIO_PIN_PA6, TRUE);
+  // GpioPinSetDirection (0, GPIO_PIN_PA5, GPIO_PIN_OUTPUT);
+  // GpioPinWrite (0, GPIO_PIN_PA5, TRUE);
 
   /* GMAC setup */
-  BoardInitGmac ();
+  // BoardInitGmac ();
 
   /* WiFi setup */
-  BoardInitWiFi ();
+  // BoardInitWiFi ();
 
   /* eMMC setup */
-  BoardInitEmmc ();
+  // BoardInitEmmc ();
 
   return EFI_SUCCESS;
 }

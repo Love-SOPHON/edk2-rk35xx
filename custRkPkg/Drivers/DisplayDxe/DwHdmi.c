@@ -10,7 +10,7 @@
 #include "DisplayDxe.h"
 #include "Vop2.h"
 #include "DwHdmi.h"
-#include <IndustryStandard/Rk356x.h>
+#include <IndustryStandard/Rk35xx.h>
 
 /* RK356x specific GRF registers */
 #define GRF_GPIO4C_IOMUX_H  (SYS_GRF + 0x0074)
